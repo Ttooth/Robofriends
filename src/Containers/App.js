@@ -18,7 +18,7 @@ class App extends Component {
         fetch('https://jsonplaceholder.typicode.com/users')
         .then(response => response.json())
         .then(user => this.setState({ robots: user  }));
-}
+    }
 
     inSearchChange = (event) => this.setState({ searchPath: event.target.value });
 
@@ -26,10 +26,9 @@ class App extends Component {
         const { robots, searchPath } = this.state;
         const filteredBox = robots.filter(robot => 
             robot.name.toLowerCase().includes(searchPath.toLowerCase()));
-        if(robots.length === 0){
-            return <h1>Loading...</h1>;
-        } else {
-            return (
+        return !robots.length ?
+            <h1>Loading...</h1>:
+            (
                 <div className='tc'> 
                     <h1 className='f1'>RoboFriends</h1>
                     <SearchBox searchChange={this.inSearchChange}/>
@@ -38,7 +37,6 @@ class App extends Component {
                     </Scroll>
                 </div>
             );
-        }
     }    
 }
 
